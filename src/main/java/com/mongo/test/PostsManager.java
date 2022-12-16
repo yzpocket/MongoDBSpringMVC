@@ -35,6 +35,7 @@ public class PostsManager {
 		if(mclient!=null)
 			mclient.close();
 	}
+	//입력하기
 	public void insertPosts() {
 		System.out.print("작성자 입력: ");
 		String author=sc.nextLine();
@@ -51,7 +52,7 @@ public class PostsManager {
 		InsertOneResult res=mcol.insertOne(doc);
 		System.out.println(res.getInsertedId()+"도큐먼트가 생성되었습니다.");
 	}//-------------------
-	
+	//모든 목록 가져오기
 	public void selectPostsAll() {
 		FindIterable<Document> cursor=mcol.find();
 		for(Document doc:cursor) {
@@ -60,7 +61,7 @@ public class PostsManager {
 			System.out.println(doc.toJson());//json문자열을 반환
 		}
 	}//-------------------
-	 
+	//모든 목록 가져오기2
 	public void selectPostsAll2() {
 		FindIterable<Document> cr=mcol.find();
 		MongoCursor<Document> mcr=cr.iterator();
@@ -72,7 +73,7 @@ public class PostsManager {
 			System.out.println(title+"\t"+author+"\t"+wdate);
 		}
 	}//-------------------
-	
+	//삭제하기
 	public void deletePosts() {
 		System.out.println("삭제할 글의 작성자명을 입력 :");
 		String author=sc.nextLine();
@@ -83,7 +84,7 @@ public class PostsManager {
 		long n=res.getDeletedCount();
 		System.out.println(n+"개의 도큐먼트 삭제됨");
 	}//-------------------
-	
+	//수정하기
 	public void updatePosts() {
 		System.out.println("검색할 글의 작성자명을 입력 :");
 		String author=sc.nextLine();
@@ -97,6 +98,9 @@ public class PostsManager {
 		long n=res.getModifiedCount();
 		System.out.println(n+"개의 도큐먼트가 수정됨");
 	}//-------------------
+	
+	
+	//메인 실행단 
 	public static void main(String[] args) {
 		PostsManager app=new PostsManager();
 		//app.insertPosts();

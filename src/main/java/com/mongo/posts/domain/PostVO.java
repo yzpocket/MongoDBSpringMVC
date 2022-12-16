@@ -1,4 +1,4 @@
-package com.mongo.test;
+package com.mongo.posts.domain;
 
 import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
@@ -15,7 +15,8 @@ import lombok.NoArgsConstructor;
 @Document(collection = "posts")
 public class PostVO {
 	@Id
-	private ObjectId id;
+	private String id;
+	//private ObjectId id;
 	
 	@BsonProperty(value="author")
 	private String author;
