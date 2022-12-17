@@ -1,5 +1,8 @@
 package com.mongo.posts.mapper;
 
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
+
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -7,10 +10,12 @@ import javax.annotation.Resource;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import com.mongo.posts.domain.PostVO;
 import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.UpdateResult;
 
 
 @Repository(value="postsMapperImpl")
@@ -48,8 +53,15 @@ public class PostsMapperImpl implements PostsMapper {
 	
 	@Override
 	public int updatePosts(PostVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		Update uvo=new Update();
+		uvo.set("author", vo.getAuthor());
+		uvo.set("title", vo.getTitle());
+		
+		//Update updateVO=Update.update("author", vo.getAuthor()).update("title", vo.getTitle());
+		UpdateResult res=mTemplate.updateFirst(query(where("_id").is(vo.getId())), uvo, PostVO.class, "posts");
+		
+		long n=res.getModifiedCount();
+		return (int)n;
 	}
 
 }

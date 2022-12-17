@@ -72,4 +72,15 @@ public class PostsController {
 		PostVO vo=this.pService.selectPosts(id);
 		return vo;
 	}
+	
+	@PostMapping(value="/postsEdit", produces="application/json")
+	@ResponseBody
+	public ModelMap postsEditEnd(@RequestBody PostVO vo) {
+		log.info("vo===="+vo);
+		int n=this.pService.updatePosts(vo);
+		ModelMap map=new ModelMap();
+		map.put("result", n);
+		return map;
+	}
+	
 }

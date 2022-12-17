@@ -25,6 +25,7 @@
 	
 	<context:component-scan base-package="com.mongo.myweb" />
 	<context:component-scan base-package="com.mongo.posts" />
+	<context:component-scan base-package="com.mongo.melon" />
 	
 	<!-- mongo setting===================== -->
 	<!-- [1] MongoClient 빈 등록 -->
